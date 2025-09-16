@@ -1,0 +1,68 @@
+@import ".config/theme/theme.css";
+
+#window
+{
+    background: alpha(@background, 0.5);
+    color: @color7;
+    border: 2px solid @border;
+    border-radius: 5px;
+}
+
+#outer-box
+{
+    padding: 20px;
+}
+
+#input
+{
+    background-color: @color13;
+    color: @background;
+    border: 4px solid @selected;
+    padding: 8px 12px;
+}
+
+#scroll
+{
+    margin-top: 20px;
+}
+
+#inner-box
+{
+    opacity: 0.8;
+}
+
+#img
+{
+    padding-right: 8px;
+}
+
+#text
+{
+    color: @text;
+}
+
+#text:selected
+{
+    color: @background;
+    background: none;
+}
+
+#entry
+{
+    padding: 6px;
+}
+
+#img:selected
+{
+    background: none;
+}
+
+#entry:selected
+{
+    background-color: @hover-text;
+}
+
+#input, #entry:selected
+{
+    border-radius: 4px;
+}
