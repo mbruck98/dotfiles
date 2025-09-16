@@ -30,7 +30,7 @@ return
                 "vim", "lua", "vimdoc",
                 "html", "css", "cpp", "c",
                 "python","cmake", "bash",
-                "awk", "doxygen"
+                "awk", "doxygen", "hyprlang"
             },
         },
     },

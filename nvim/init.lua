@@ -11,6 +11,12 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+ vim.filetype.add {
+      pattern = {
+        ['.*/hypr/*.conf'] = 'hyprlang',
+      },
+    }
+
 vim.api.nvim_create_autocmd("CursorHold",
 {
     callback = function()
