@@ -1,0 +1,16 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+@define-color active @cursor;
+@define-color border @color14;
+@define-color text @foreground;
+@define-color active-text @color3;
+@define-color selected @color10;
+@define-color hover alpha(@color11, .8);
+@define-color hover-text @color9;
+
+*
+{
+    font-family: "BigBlueTermPlus Nerd Font";
+    /* font-family: "Sauce Code Pro Nerd Font"; */
+    font-size: 18px;
+}

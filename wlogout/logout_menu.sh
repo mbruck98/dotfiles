@@ -30,8 +30,6 @@ case "${wlogoutStyle}" in
     ;;
 esac
 
-export fntSize=$((y_mon * 2 / 100))
-
 wlStyle="$(envsubst <"${wlTmplt}")"
 
 wlogout -b "${wlColms}" -c 0 -r 0 -m 0 --layout "${wLayout}" --css <(echo "${wlStyle}") --protocol layer-shell

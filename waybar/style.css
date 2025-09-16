@@ -1,23 +1,22 @@
-* {
+@import "../theme/theme.css";
+
+*
+{
     border: none;
     border-radius: 0px;
-    font-family: "Sauce Code Pro Nerd Font";
-/*     font-weight: bold;*/
-    font-size: 18px;
+    font-weight: normal;
     min-height: 10px;
 }
 
-@import "theme.css";
-
 window#waybar
 {
-    background: @bar-bg;
+    background: rgba(0, 0, 0, 0);
 }
 
 tooltip
 {
-    background: @main-bg;
-    color: @main-fg;
+    background: @hover;
+    color: @text;
     border-radius: 7px;
     border-width: 0px;
 }
@@ -34,14 +33,14 @@ tooltip
     padding-left: 3px;
     padding-right: 3px;
     margin-right: 0px;
-    color: @main-fg;
+    color: @text;
     animation: ws_normal 20s ease-in-out 1;
 }
 
 #workspaces button.active
 {
-    background: @wb-act-bg;
-    color: @wb-act-fg;
+    background: @active;
+    color: @active-text;
     margin-left: 3px;
     padding-left: 12px;
     padding-right: 12px;
@@ -52,8 +51,8 @@ tooltip
 
 #workspaces button:hover
 {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-fg;
+    background: @hover;
+    color: @hover-text;
     animation: ws_hover 20s ease-in-out 1;
     transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
@@ -70,14 +69,14 @@ tooltip
     padding-left: 3px;
     padding-right: 3px;
     margin-right: 0px;
-    color: @wb-color;
+    color: @text;
     animation: tb_normal 20s ease-in-out 1;
 }
 
 #taskbar button.active
 {
-    background: @wb-act-bg;
-    color: @wb-act-color;
+    background: @background;
+    color: @foreground;
     margin-left: 3px;
     padding-left: 12px;
     padding-right: 12px;
@@ -88,10 +87,16 @@ tooltip
 
 #taskbar button:hover
 {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-color;
+    background: @hover;
+    color: @text;
     animation: tb_hover 20s ease-in-out 1;
     transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces,
+#taskbar
+{
+    padding: 0px;
 }
 
 #tray menu *
@@ -107,61 +112,40 @@ tooltip
 #backlight,
 #battery,
 #bluetooth,
-#custom-cava,
-#custom-cliphist,
-#clock,
 #clock,
 #custom-cpuinfo,
 #cpu,
-#custom-github_hyde,
+#custom-applauncher,
 #custom-gpuinfo,
-#custom-hyprsunset,
+#custom-l_end,
+#custom-notifications,
+#custom-power,
+#custom-r_end,
+#custom-randomwallpapers,
 #idle_inhibitor,
-#custom-keybindhint,
 #language,
 #memory,
 #mpris,
 #network,
-#custom-applauncher,
-#custom-notifications,
-#custom-power,
 #privacy,
 #pulseaudio,
-#custom-sensorsinfo,
-#custom-spotify,
-#taskbar,
-#taskbar,
 #taskbar,
 #taskbar#windows,
-#custom-theme,
 #tray,
-#custom-updates,
-#custom-randombg,
-#custom-wbar,
-#custom-weather,
 #window,
-#workspaces,
-#workspaces,
-#workspaces,
-#custom-l_end,
-#custom-r_end,
-#custom-sl_end,
-#custom-sr_end,
-#custom-rl_end,
-#custom-rr_end
+#workspaces
 {
-    color: @main-fg;
-    background: @main-bg;
+    border-top: solid;
+    border-bottom: solid;
+    border-width: 2px;
+    border-color: @border;
+
+    color: @text;
+    background: alpha(@background, .4);
     opacity: 1;
     margin: 4px 0px 4px 0px;
     padding-left: 4px;
     padding-right: 4px;
-}
-
-#workspaces,
-#taskbar
-{
-    padding: 0px;
 }
 
 #custom-r_end
@@ -169,6 +153,9 @@ tooltip
     border-radius: 0px 21px 21px 0px;
     margin-right: 9px;
     padding-right: 3px;
+    border-right: solid;
+    border-width: 2px;
+    border-color: @border;
 }
 
 #custom-l_end
@@ -176,32 +163,8 @@ tooltip
     border-radius: 21px 0px 0px 21px;
     margin-left: 9px;
     padding-left: 3px;
+    border-left: solid;
+    border-width: 2px;
+    border-color: @border;
 }
 
-#custom-sr_end
-{
-    border-radius: 0px;
-    margin-right: 9px;
-    padding-right: 3px;
-}
-
-#custom-sl_end
-{
-    border-radius: 0px;
-    margin-left: 9px;
-    padding-left: 3px;
-}
-
-#custom-rr_end
-{
-    border-radius: 0px 7px 7px 0px;
-    margin-right: 9px;
-    padding-right: 3px;
-}
-
-#custom-rl_end
-{
-    border-radius: 7px 0px 0px 7px;
-    margin-left: 9px;
-    padding-left: 3px;
-}

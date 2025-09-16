@@ -1,10 +1,9 @@
 *
 {
     background-image: none;
-    font-size: ${fntSize}px;
 }
 
-@import "$HOME/.config/waybar/theme.css";
+@import "$HOME/.config/theme/theme.css";
 
 window
 {
@@ -14,10 +13,11 @@ window
 button
 {
     color: white;
-    background-color: @main-bg;
+    background-color: @background;
     outline-style: none;
-    border: none;
-    border-width: 0px;
+    border: solid;
+    border-color: @cursor;
+    border-width: 0.1px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20%;
@@ -25,27 +25,30 @@ button
     box-shadow: none;
     text-shadow: none;
     animation: gradient_f 20s ease-in infinite;
+    opacity: 0.8;
 }
 
 button:focus
 {
-    background-color: @wb-act-bg;
+    background-color: @hover;
     background-size: 30%;
+    opacity: 1;
 }
 
 button:hover
 {
-    background-color: @wb-hvr-bg;
+    background-color: @active;
     background-size: 40%;
     border-radius: 50px;
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+    opacity: 1;
 }
 
 button:hover#logout
 {
     border-radius: 50px;
-    margin : ${hvr}px 0px ${hvr}px ${mgn}px;
+    margin : ${hvr}px 0px ${hvr}px 0px;
 }
 
 button:hover#suspend
@@ -57,7 +60,7 @@ button:hover#suspend
 button:hover#shutdown
 {
     border-radius: 50px;
-    margin : ${hvr}px 0px ${hvr}px 0px;
+    margin : ${hvr}px 0px ${hvr}px ${mgn}px;
 }
 
 button:hover#hibernate
@@ -75,8 +78,8 @@ button:hover#reboot
 #logout
 {
     background-image: image(url("$HOME/.config/wlogout/icons/logout.png"), url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
-    border-radius: 80px 0px 0px 80px;
-    margin : ${mgn}px 0px ${mgn}px ${mgn}px;
+    border-radius: 0px 0px 0px 0px;
+    margin : ${mgn}px 0px ${mgn}px 0px;
 }
 
 #suspend
@@ -89,8 +92,8 @@ button:hover#reboot
 #shutdown
 {
     background-image: image(url("$HOME/.config/wlogout/icons/shutdown.png"), url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
-    border-radius: 0px 0px 0px 0px;
-    margin : ${mgn}px 0px ${mgn}px 0px;
+    border-radius: 80px 0px 0px 80px;
+    margin : ${mgn}px 0px ${mgn}px ${mgn}px;
 }
 
 #hibernate
