@@ -3,19 +3,9 @@
         {
             "interval": 15,
             "format": "󰍛 {usage}%",
-            "rotate": 0,
-            "format-alt": "{load}",
-            "format-icons":
-            [
-                "<span color='#69ff94'>▁</span>", // green
-                "<span color='#2aa9ff'>▂</span>", // blue
-                "<span color='#f8f8f2'>▃</span>", // white
-                "<span color='#f8f8f2'>▄</span>", // white
-                "<span color='#ffffa5'>▅</span>", // yellow
-                "<span color='#ffffa5'>▆</span>", // yellow
-                "<span color='#ff9977'>▇</span>", // orange
-                "<span color='#dd532e'>█</span>"  // red
-            ]
+            "on-click": "gtk-launch btop"
+        },
+
         "mpd":
         {
             "format": "{stateIcon} {artist} - {title}   ",
@@ -136,15 +126,15 @@
                 "phone": " ",
                 "portable": " ",
                 "car": " ",
-                "default": ["", " ", " "]
+                "default": [" ", " ", " "]
             }
         },
 
         "pulseaudio#microphone":
         {
-            "format": "{format_source} {source_volume}% ",
+            "format": "{format_source}",
             "rotate": 0,
-            "format-source": "",
+            "format-source": " {volume}%",
             "format-source-muted": "󰍭 ",
             "on-click": "pavucontrol -t 4",
             "on-click-right": "pamixer --default-source -t",
