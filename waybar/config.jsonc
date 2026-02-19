@@ -36,6 +36,7 @@
         [
             "custom/padd",
             "custom/l_end",
+            "mpd",
             "pulseaudio",
             "pulseaudio#microphone",
             "privacy",

@@ -16,6 +16,19 @@
                 "<span color='#ff9977'>▇</span>", // orange
                 "<span color='#dd532e'>█</span>"  // red
             ]
+        "mpd":
+        {
+            "format": "{stateIcon} {artist} - {title}   ",
+            "format-disconnected": "Disconnected ",
+            "format-stopped": "",
+            "interval": 10,
+            "max-length": 250,
+            "tooltip-format": "Artist: {artist}\nAlbum: {album}\nTitle: {title}\n({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+            "tooltip-format-disconnected": "MPD (disconnected)",
+            "on-click": "playerctl --player=mpd play-pause",
+            "on-click-middle": "playerctl --player=mpd stop",
+            "on-scroll-up": "playerctl --player=mpd next",
+            "on-scroll-down": "playerctl --player=mpd previous"
         },
 
         "memory":

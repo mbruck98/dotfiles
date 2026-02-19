@@ -1,0 +1,185 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+    default_album_art_path: None,
+    show_song_table_header: true,
+    draw_borders: true,
+    browser_column_widths: [20, 38, 42],
+    text_color: "{color7}",
+    header_background_color: None,
+    modal_background_color: "{color1}",
+    tab_bar: (
+        enabled: true,
+        active_style: (fg: "{color0}", bg: "{color15}", modifiers: "Bold"),
+        inactive_style: (fg: "{color15}"),
+    ),
+    highlighted_item_style: (fg: "{color10}", modifiers: "Bold"),
+    current_item_style: (fg: "{color15}", bg: "{color1}", modifiers: "Bold"),
+    borders_style: (fg: "{color14}"),
+    highlight_border_style: (fg: "{color14}"),
+    symbols: (song: "󰎇", dir: "󰉋", playlist: "󰲸 ", marker: " ", ellipsis: "..."),
+    progress_bar: (
+        symbols: ["", "█", "", "█", "" ],
+        track_style: (fg: "{color0}"),
+        elapsed_style: (fg: "{color10}"),
+        thumb_style: (fg: "{color15}", bg: "{color0}"),
+    ),
+    scrollbar: (
+        symbols: ["│", "█", "▲", "▼"],
+        track_style: (),
+        ends_style: (),
+        thumb_style: (fg: "{color10}"),
+    ),
+    song_table_format: [ // view in the queue
+        (
+            prop: (kind: Property(Artist),
+                default: (kind: Text("Unknown"))
+            ),
+            width: "15%",
+            alignment: Left,
+        ),
+        (
+            prop: (kind: Property(Title),
+                default: (kind: Text("Unknown"))
+            ),
+            width: "55%",
+            alignment: Left,
+        ),
+        (
+            prop: (kind: Property(Album), style: (fg: "{color15}"),
+                default: (kind: Text("Unknown Album"), style: (fg: "{color15}"))
+            ),
+            width: "20%",
+            alignment: Left,
+        ),
+        (
+            prop: (kind: Property(Duration),
+                default: (kind: Text("-"))
+            ),
+            width: "10%",
+            alignment: Left,
+        ),
+    ],
+    layout: Split(
+        direction: Vertical,
+        panes: [
+            (
+                pane: Pane(Tabs),
+                size: "3",
+            ),
+            (
+                pane: Pane(Header),
+                size: "4",
+                borders:"ALL",
+            ),
+            (
+                pane: Pane(TabContent),
+                size: "100%",
+            ),
+            (
+                pane: Pane(ProgressBar),
+                size: "1",
+            ),
+        ],
+    ),
+    header: (
+        rows: [
+            (
+                left: [
+                    (kind: Text("["), style: (fg: "{color14}", modifiers: "Bold")),
+                    (kind: Property(Status(StateV2(playing_label: "Playing", paused_label: "Paused", stopped_label: "Stopped"))), style: (fg: "{color14}", modifiers: "Bold")),
+                    (kind: Text("]"), style: (fg: "{color14}", modifiers: "Bold"))
+                ],
+                center: [
+                    (kind: Group([
+                        (kind: Property(Song(Artist)), style: (fg: "{color14}", modifiers: "Bold")),
+                        (kind: Text(" - "), style: (fg: "white", modifiers: "Bold")),
+                        (kind: Property(Song(Title)), style: (fg: "{color14}", modifiers: "Bold")),
+                    ]), default: (kind: Property(Song(Title)), style: (fg: "{color14}", modifiers: "Bold"))
+                    )
+                ],
+                right: [
+                    (kind: Property(Widget(Volume)), style: (fg: "{color14}"))
+                ]
+            ),
+            (
+                left: [
+                    (kind: Property(Status(Elapsed)), style: (fg: "{color14}")),
+                    (kind: Text(" / "), style: (fg: "white")),
+                    (kind: Property(Status(Duration)), style: (fg: "{color14}")),
+                    (kind: Text(" ("), style: (fg: "{color14}")),
+                    (kind: Property(Status(Bitrate)), style: (fg: "{color14}")),
+                    (kind: Text(" kbps)"), style: (fg: "{color14}"))
+                ],
+                center: [
+                ],
+                right: [
+                    (kind: Property(Status(RepeatV2(
+                        on_label: " ", 
+                        off_label: " ",
+                        on_style: (fg: "{color15}", modifiers: "Bold"),
+                        off_style: (fg: "{color14}", modifiers: "Bold"))))),
+                    (kind: Text(" | "),style: (fg: "white", modifiers: "Bold")),
+                    (kind: Property(Status(RandomV2(
+                        on_label: " ", 
+                        off_label: " ",
+                        on_style: (fg: "{color15}", modifiers: "Bold"),
+                        off_style: (fg: "{color14}", modifiers: "Bold"))))),
+                    (kind: Text(" | "),style: (fg: "white", modifiers: "Bold")),
+                    (kind: Property(Status(ConsumeV2(
+                        on_label: "󰮯 ", 
+                        off_label: "󰮯 ", 
+                        oneshot_label: "󰮯 󰇊 ",
+                        on_style: (fg: "{color15}", modifiers: "Bold"),
+                        off_style: (fg: "{color14}", modifiers: "Bold"))))),
+                    (kind: Text(" | "),style: (fg: "white", modifiers: "Bold")),
+                    (kind: Property(Status(SingleV2(
+                        on_label: "󰎤 ", 
+                        off_label: "󰎦 ", 
+                        oneshot_label: "󰇊 ", 
+                        off_oneshot_label: "󱅊 ",
+                        on_style: (fg: "{color15}", modifiers: "Bold"),
+                        off_style: (fg: "{color14}", modifiers: "Bold"))))),
+                ]
+            ),
+        ],
+    ),
+    browser_song_format: [
+        (
+            kind: Group([
+                (kind: Property(Track)), // track #
+                (kind: Text(" ")),
+            ])
+        ),
+        (
+            kind: Group([
+                (kind: Property(Artist)),
+                (kind: Text(" - ")),
+                (kind: Property(Title)),
+            ]),
+            default: (kind: Property(Filename))
+        ),
+    ],
+    cava:
+    (
+        bar_color: Gradient({{
+            0: "{color15}",
+            5: "{color14}",
+            10: "{color13}",
+            15: "{color12}",
+            20: "{color11}",
+            25: "{color10}",
+            30: "{color9}",
+            40: "{color8}",
+            50: "{color7}",
+            60: "{color6}",
+            70: "{color5}",
+            80: "{color4}",
+            85: "{color3}",
+            90: "{color2}",
+            95: "{color1}",
+            100: "{color0}",
+        }})
+    )
+)
