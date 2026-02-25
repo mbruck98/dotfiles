@@ -12,6 +12,11 @@
             "format-disconnected": "Disconnected ",
             "format-stopped": "",
             "interval": 10,
+            "state-icons":
+            {
+                "paused": "",
+                "playing": ""
+            },
             "max-length": 250,
             "tooltip-format": "Artist: {artist}\nAlbum: {album}\nTitle: {title}\n({elapsedTime:%M:%S}/{totalTime:%M:%S})",
             "tooltip-format-disconnected": "MPD (disconnected)",
