@@ -20,6 +20,6 @@ case "$mode" in
     $(sleep 0.1 && hyprshot -m window -m active --clipboard-only)&
 ;;
 *)
-    notify-send "ERROR: Nothing selected"
+    notify-send "ERROR: Nothing selected" -e -t 2000
 ;;
 esac
