@@ -1,13 +1,13 @@
 {
     "label": "shutdown",
-    "action": "systemctl poweroff",
+    "action": "hyprshutdown -p 'loginctl poweroff'",
     "text": "Shutdown",
     "keybind": "s"
 }
 
 {
     "label": "suspend",
-    "action": "lockscreen.sh & disown && systemctl suspend",
+    "action": "loginctl suspend",
     "text": "Suspend",
     "keybind": "u"
 }
@@ -21,14 +21,14 @@
 
 {
     "label": "hibernate",
-    "action": "systemctl hibernate",
+    "action": "loginctl hibernate",
     "text": "Hibernate",
     "keybind": "h"
 }
 
 {
     "label": "reboot",
-    "action": "systemctl reboot",
+    "action": "hyprshutdown -p 'loginctl reboot'",
     "text": "Reboot",
     "keybind": "r"
 }

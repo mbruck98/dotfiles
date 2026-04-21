@@ -1,67 +1,76 @@
 #!/usr/bin/env bash
 
-WALLPAPER_SCRIPT=$(realpath $0)
-UNIT_NAME=wallpaperRandomizer
-MAIN_MONITOR="DP-1"
-
-if [[ ! -f "${XDG_RUNTIME_DIR}/hyprpaper.lock" ]]; then
-    systemctl --user start hyprpaper.service
-    sleep 1
-fi
-
-disableTimer()
-{
-    echo "Stoping random wallpaper service"
-    systemctl --user stop $UNIT_NAME.timer
-    exit 0
-}
-
-enableTimer()
-{
-    echo "Starting random wallpaper service"
-    systemd-run --user --unit="$UNIT_NAME" --on-calendar="*:0/5" $WALLPAPER_SCRIPT --silent
-    exit 0
-}
-
-toggleTimer()
-{
-    TIMERS=$(systemctl --user list-timers --all)
-    if [[ ! $( echo $TIMERS | grep "$UNIT_NAME.timer" ) ]]; then
-        enableTimer
-    else
-        disableTimer
-    fi
-}
+readonly WALLPAPER_SCRIPT=$(realpath $0)
+readonly UNIT_NAME=wallpaperRandomizer
+readonly MAIN_MONITOR="DP-1"
+readonly TIMEOUT=5 # minutes
 
 randomize()
 {
-    WALLPAPER_DIRECTORY=$HOME/Pictures/backgrounds
-    MONITORS=$(hyprctl --instance 0 monitors active | awk  '/Monitor/ {print $2}')
-
+    local -r WALLPAPER_DIRECTORY=$HOME/Pictures/backgrounds
+    local -r MONITORS=$(hyprctl --instance 0 monitors active | awk  '/Monitor/ {print $2}')
     sleep 0.05
-
     for MONITOR in $MONITORS
     do
-        PREVIOUS_WALLPAPER=$(basename $(cat $HOME/.cache/wal/wal))
-        WALLPAPER=$(find "$WALLPAPER_DIRECTORY" -type f ! -name "$PREVIOUS_WALLPAPER" | shuf -n 1)
+        local PREVIOUS_WALLPAPER=$(basename $(cat $HOME/.cache/wal/wal))
+        local WALLPAPER=$(find "$WALLPAPER_DIRECTORY" -type f ! -name "$PREVIOUS_WALLPAPER" | shuf -n 1)
         if [[ $MONITOR == $MAIN_MONITOR ]]; then
             $HOME/.config/hypr/scripts/generate_color_schemes.sh $WALLPAPER
         fi
-        setsid hyprctl --instance 0 hyprpaper wallpaper "$MONITOR,$WALLPAPER"
+        hyprctl --instance 0 hyprpaper wallpaper "$MONITOR,$WALLPAPER"
         sleep 0.05
     done
 }
 
+disableTimer()
+{
+    crontab -l | grep -v "$WALLPAPER_SCRIPT" | crontab -
+}
+
+enableTimer()
+{
+    local -r CRONJOB=$(crontab -l | grep "$WALLPAPER_SCRIPT")
+    if [[ $CRONJOB ]]; then # remove old cronjobs
+        disableTimer
+    fi
+    local -r XDG_RUNTIME_DIR=/run/user/$(id -u)
+    HYPRLAND_INSTANCE_SIGNATURE=$(hyprctl instances | awk '/instance/ {print substr($2,1,length($2)-1)}')
+    while [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]  # wait for hyprland to finish init
+    do
+        sleep 0.5
+        HYPRLAND_INSTANCE_SIGNATURE=$(hyprctl instances | awk '/instance/ {print substr($2,1,length($2)-1)}')
+    done
+    randomize
+    (crontab -l ; echo "*/$TIMEOUT * * * * XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR HYPRLAND_INSTANCE_SIGNATURE=$HYPRLAND_INSTANCE_SIGNATURE $WALLPAPER_SCRIPT --silent") | crontab -
+}
+
+toggleTimer()
+{
+    local -r CRONJOB=$(crontab -l | grep "$WALLPAPER_SCRIPT")
+    if [[ ! $CRONJOB ]]; then
+        enableTimer
+        notify-send -e -t 1000 "Enabling wallpaper randomizer 󰆊 "
+    else
+        disableTimer
+        notify-send -e -t 1000 "Disabling wallpaper randomizer 󰆊 "
+    fi
+}
+
+
+
 if [[ " $* " =~ " --enable" ]]; then
     enableTimer
+    exit 0
 fi
 
 if [[ " $* " =~ " --disable" ]]; then
     disableTimer
+    exit 0
 fi
 
 if [[ " $* " =~ " --toggle" ]]; then
     toggleTimer
+    exit 0
 fi
 
 randomize

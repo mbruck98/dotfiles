@@ -1,6 +1,6 @@
 {
     "label": "suspend",
-    "action": "systemctl suspend",
+    "action": "loginctl suspend",
     "text": "Suspend",
     "keybind": "u"
 }
@@ -14,14 +14,14 @@
 
 {
     "label": "shutdown",
-    "action": "systemctl poweroff",
+    "action": "hyprshutdown -p 'loginctl poweroff'",
     "text": "Shutdown",
     "keybind": "s"
 }
 
 {
     "label": "reboot",
-    "action": "systemctl reboot",
+    "action": "hyprshutdown -p 'loginctl reboot'",
     "text": "Reboot",
     "keybind": "r"
 }
