@@ -33,7 +33,6 @@ enableTimer()
     if [[ $CRONJOB ]]; then # remove old cronjobs
         disableTimer
     fi
-    local -r XDG_RUNTIME_DIR=/run/user/$(id -u)
     HYPRLAND_INSTANCE_SIGNATURE=$(hyprctl instances | awk '/instance/ {print substr($2,1,length($2)-1)}')
     while [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]  # wait for hyprland to finish init
     do

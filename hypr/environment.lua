@@ -1,0 +1,6 @@
+hl.env("XDG_MENU_PREFIX", "arch-")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("DBUS_SESSION_BUS_ADDRESS", "unix:path=" .. os.getenv("XDG_RUNTIME_DIR") .. "/bus")
